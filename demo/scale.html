@@ -1,0 +1,212 @@
+<!--
+ * @Author: liujie tiandiweb@qq.com
+ * @Date: 2022-10-26 16:10:38
+ * @LastEditors: liujie tiandiweb@qq.com
+ * @LastEditTime: 2022-11-28 10:58:00
+ * @FilePath: \mk-webd:\work\svgdemo\scale.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		/* html {
+			overflow: hidden;
+		}
+		body {
+			overflow: scroll;
+		} */
+		#app{
+			width: 100%;
+			height: 100%;
+			
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div id="response"
+			style="overflow: auto;"
+		>
+			<div 
+				id="content"
+			style="
+			width: 100%; height:100%;
+			background-color: royalblue;
+			/* min-width: 1440px;
+			max-width: 1540px; */
+			">
+				<!-- <img id="img" width="1366" src="./bigscreen.jpg" alt="" style="display:block;"> -->
+				<!-- <div style="font-size: 12px;">12PX d 的文字</div>
+					<div style="font-size: 13px;width: 900px;">13PX d 的文字</div>
+					<div style="font-size: 14px;">14PX d 的文字</div>
+					<div style="font-size: 15px;">15PX d 的文字</div>
+					<div style="font-size: 16px;">16PX d 的文字</div>
+					<div style="font-size: 17px;">17PX d 的文字</div>
+					<div style="font-size: 18px;">18PX d 的文字</div>
+					<div style="font-size: 20px;">20PX d 的文字</div>
+					<h1>fdsf</h1>
+		
+					<h1>fdsf</h1>
+		
+					<h1>放点其他内容</h1> -->
+				<input type="text" placeholder="占位内容123456">
+			</div>
+		</div>
+	</div>
+	<script src="../dist/css-scale-min.js"></script>
+	<script>
+		var _scaleSplitPix = {
+			minPix: 1766,
+			maxPix: 1920,
+		};
+		var _effectScreen = {
+			minScreenSize: 1540,
+			maxScreenSize: 1920,
+		};
+		var __config = {
+			forceMinScale:false,//For Middle Screen
+			forbidMinScale:false,//ForBigScreen
+			selector:'#response',
+			parentSelector:'#app',
+			// boxMinWidth:900,
+			// boxMinHeight:450,
+			// enable:false,//是否开启功能 false禁用，true 任何情况都缩放 ，不设置则按照条件
+			onScale:function(scale){
+				console.log('缩放完成，缩放率:'+scale)
+			},
+			onReady:function(isScale){
+				console.log('你的屏幕是否需要缩放:'+isScale)
+			},
+		};
+		
+		// (function(scaleSplitPix, effectScreen, config) {
+		// 	let scaleStartPix = scaleSplitPix.minPix || 1366;
+		// 	var scaleEndPix = scaleSplitPix.maxPix==undefined ? 
+		// 						(effectScreen.maxScreenSize ? effectScreen.maxScreenSize: false )
+		// 					: scaleSplitPix.maxPix;
+		// 	let _config = config ? config : {};
+		// 	_config.boxMinWidth = _config.boxMinWidth ? _config.boxMinWidth : 900;
+		// 	_config.boxMinHeight = _config.boxMinHeight ? _config.boxMinHeight : 900 * (900 / window.screen.width);
+		// 	_config.selector = _config.selector ? _config.selector : 'body';
+		// 	_config.parentSelector = _config.parentSelector ? _config.parentSelector : 'html';
+		// 	_config.minScreenSizeSplit = effectScreen.minScreenSize ? effectScreen.minScreenSize : 1440;
+		// 	_config.maxScreenSizeSplit = effectScreen.maxScreenSize ? effectScreen.maxScreenSize : 1920;
+		// 	var _isReady = false;
+		// 	var _isScale = false;
+		// 	var obj = $(_config.selector);
+		// 		obj.style.width = '100%';
+		// 		obj.style.height = '100%';
+		// 	if(_config.enable==false){
+		// 		_config.onReady && _config.onReady(false);
+		// 		return
+		// 	}
+		// 	window.addEventListener('load', function () {
+		// 		liujie_doScale();
+		// 	}, false);
+		// 	window.addEventListener('resize', function () {
+		// 		liujie_doScale();
+		// 	}, false);
+		// 	window.addEventListener('fullscreenchange', function () {
+		// 		liujie_doScale();
+		// 	}, false);
+
+		// 	var parentObj = null;
+		// 	var scale = 1;
+		// 	function liujie_doScale() {
+		// 		getParentObj();
+		// 		if(!countIsScale()){
+		// 			setReady(false);
+		// 			return
+		// 		}
+
+		// 		var obj = $(_config.selector)
+		// 		obj.style.transformOrigin = 'top left';
+		// 		// debugger
+		// 		if (parentObj.offsetWidth <= scaleStartPix  || scaleEndPix && parentObj.offsetWidth > scaleEndPix) {
+		// 			if(parentObj.offsetWidth <= scaleStartPix){
+		// 				scale = parentObj.offsetWidth / scaleStartPix;
+		// 			} else {
+		// 				scale = parentObj.offsetWidth / scaleEndPix;
+		// 			}
+		// 			var adaptWidth = parentObj.offsetWidth / scale;//缩放时调整高度
+		// 			var adaptHeight = parentObj.offsetHeight / scale;//缩放时调整高度
+		// 			setTimeout(function(){
+		// 				var _adaptHeight = parentObj.offsetHeight / scale;
+		// 				if(adaptHeight!==_adaptHeight){
+		// 					obj.style.height = _adaptHeight + 'px';
+		// 				}
+		// 				setReady(true);
+		// 				_config.onScale && _config.onScale(scale);
+		// 			},1)
+		// 			obj.style.width = adaptWidth + 'px';
+		// 			obj.style.height = adaptHeight + 'px';
+		// 			parentObj.style.overflow = 'hidden';
+		// 			obj.style.transform = 'scale(' + scale + ')';
+		// 			_isScale = true;
+		// 		} else {
+		// 			setReady(false);
+		// 			if(_isScale == true){
+		// 				obj.style.transform = 'scale(1)';
+		// 				obj.style.width = '100%';
+		// 				obj.style.height = '100%';
+		// 				parentObj.style.overflow = 'hidden';
+		// 			}
+		// 		}
+		// 	}
+		// 	function $(Selector){
+		// 		return document.querySelector(Selector);
+		// 	}
+		// 	function setReady(isScale){
+		// 		if(_isReady==false){
+		// 			_config.onReady && _config.onReady(isScale);
+		// 			_isReady = true;
+		// 		}
+		// 	}
+		// 	function getParentObj(){
+		// 		if(parentObj == null){
+		// 			parentObj = $(_config.parentSelector);
+		// 			if (_config.boxMinWidth) {
+		// 				parentObj.style.minWidth = _config.boxMinWidth + 'px';
+		// 			}
+		// 			if (_config.boxMinHeight) {
+		// 				parentObj.style.minHeight = _config.boxMinHeight + 'px';
+		// 			}
+		// 		}
+		// 	}
+		// 	function isEnable(){
+		// 		return window.screen.width <= _config.minScreenSizeSplit ? true : false || window.screen.width > _config.maxScreenSizeSplit ? true : false;
+		// 	}
+		// 	function countIsScale(){
+		// 		if(_config.enable){
+		// 			return true;
+		// 		}
+		// 		if(_config.forceMinScale && parentObj.offsetWidth <= _config.minScreenSizeSplit && window.screen.width <= _config.maxScreenSizeSplit){
+		// 			return true;
+		// 		}
+		// 		if(_config.forbidMinScale && parentObj.offsetWidth <= _config.minScreenSizeSplit && window.screen.width > _config.maxScreenSizeSplit){
+		// 			return false;
+		// 		}
+		// 		return isEnable();
+		// 	}
+		// })(_scaleSplitPix, _effectScreen, __config)
+		cssScale(_scaleSplitPix,_effectScreen,__config);
+	</script>
+</body>
+
+</html>
