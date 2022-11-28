@@ -11,16 +11,21 @@
 # Usage
 调用函数 cssScale(_scaleSplitPix,_effectScreen,__config);
 _scaleSplitPix：决定缩放时基于的像素。
+
     例子：var _scaleSplitPix = {
 			minPix: 1766,//当屏幕在小屏时候，以1766进行缩放。
 			maxPix: 1920,//当屏幕在大屏时候，以1920进行缩放。
 		};
-_effectScreen
+		
+_effectScreen：生效的屏幕尺寸
+
     例子：var _effectScreen = {
 			minScreenSize: 1540,//宽度小于1540像素的屏幕为小屏
 			maxScreenSize: 1920,//宽度大于1920像素的屏幕为大屏。
 		};
+		
 __config：其他配置
+
     例子：var __config = {
 			forceMinScale:false,//在大屏时是否强制开启缩放。
 			forbidMinScale:false,//在大屏时候，是否禁止进行缩放
